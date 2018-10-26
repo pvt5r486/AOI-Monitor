@@ -128,8 +128,9 @@ var app = new Vue({
         },
         locationFilter() {
             const vm = this;
-            vm.location = vm.data.filter((item, index) => {
-                return vm.data[index].County == vm.filter
+            vm.location = vm.data.filter((item) => {
+                //console.log(item);
+                return item.County == vm.filter
             });
             return vm.location;
         }
