@@ -50,7 +50,7 @@ var app = new Vue({
         },
         getLocalstoageData() {
             if (JSON.parse(localStorage.getItem("staredArray"))) {
-                let vm = this;
+                const vm = this;
                 let oldLocalStorageArray = JSON.parse(localStorage.getItem("staredArray"));
                 let updateArray = [];
                 for (let i = 0; i < oldLocalStorageArray.length; i++) {
@@ -61,7 +61,7 @@ var app = new Vue({
                     }
                 }
                 //console.log(vm.data);
-                this.stared = updateArray;
+                vm.stared = updateArray;
             }
         },
         statusColor(status) {
