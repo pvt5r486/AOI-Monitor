@@ -106,8 +106,8 @@ var app = new Vue({
             if (index == -1) {
                 if (confirm('將' + data.County + '-' + data.SiteName + '放入重點觀測區？')) {
                     vm.stared.push(data);
-                    //將stared放入localstorage
-                    localStorage.setItem("staredArray", JSON.stringify(vm.stared));
+                    //將stared放入localstorage - 改寫至watch
+                    //localStorage.setItem("staredArray", JSON.stringify(vm.stared));
                 }
             }
         },
@@ -120,7 +120,7 @@ var app = new Vue({
             if (confirm('確定要移除' + data.County + '-' + data.SiteName + '嗎？')) {
                 vm.stared.splice(index, 1);
                 //將stared放入localstorage
-                localStorage.setItem("staredArray", JSON.stringify(vm.stared));
+                //localStorage.setItem("staredArray", JSON.stringify(vm.stared));
             }
         }
     },
@@ -143,5 +143,11 @@ var app = new Vue({
     },
     mounted() {
         this.getData();
+    },
+    watch: {
+        //監控stared,如果有變化就更新
+        stared: function () {
+            localStorage.setItem("staredArray", JSON.stringify(this.stared));
+        }
     },
 });
