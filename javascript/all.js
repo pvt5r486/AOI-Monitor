@@ -60,6 +60,15 @@ var app = new Vue({
                         }
                     }
                 }
+
+
+                //比較好的做法
+                // const updateArray = oldLocalStorageArray.filter(lcoalItem => {
+                //     //console.log(lcoalItem);
+                //     return vm.data.find(item => lcoalItem.SiteName === item.SiteName);
+                // });
+
+
                 //console.log(vm.data);
                 vm.stared = updateArray;
             }
@@ -128,10 +137,7 @@ var app = new Vue({
         },
         locationFilter() {
             const vm = this;
-            vm.location = vm.data.filter((item) => {
-                //console.log(item);
-                return item.County == vm.filter
-            });
+            vm.filter ? vm.location = vm.data.filter((item) => { return item.County == vm.filter }) : vm.location = vm.data;
             return vm.location;
         }
     },
