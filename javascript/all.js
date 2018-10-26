@@ -45,11 +45,23 @@ var app = new Vue({
             $.get(api).then(function (response) {
                 vm.data = response;
                 //console.log(response)
+                vm.getLocalstoageData();
             });
         },
         getLocalstoageData() {
             if (JSON.parse(localStorage.getItem("staredArray"))) {
-                this.stared = JSON.parse(localStorage.getItem("staredArray"));
+                let vm = this;
+                let oldLocalStorageArray = JSON.parse(localStorage.getItem("staredArray"));
+                let updateArray = [];
+                for (let i = 0; i < oldLocalStorageArray.length; i++) {
+                    for (let j = 0; j < vm.data.length; j++) {
+                        if (vm.data[j].SiteName === oldLocalStorageArray[i].SiteName) {
+                            updateArray[i] = vm.data[j];
+                        }
+                    }
+                }
+                //console.log(vm.data);
+                this.stared = updateArray;
             }
         },
         statusColor(status) {
@@ -124,6 +136,5 @@ var app = new Vue({
     },
     mounted() {
         this.getData();
-        this.getLocalstoageData();
     },
 });
