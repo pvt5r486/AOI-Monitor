@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Vue元件練習">
+    <meta name="keywords" content="Vue元件練習">
+    <meta name="author" content="蔡宇軒 - github:pvt5r486">
+    <meta name="copyright" content="六角學院">
+    <meta property="og:title" content="Vue元件練習">
+    <meta property="og:description" content="Vue元件練習">
+    <meta property="og:type" content="website">
+    <meta property="og:image:width" content="">
+    <meta property="og:image:height" content="">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="index.html">
+    <title>AQI監控 - Vue元件練習</title>
+    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="stylesheets/all.css">
+    <style>
+        .status-aqi2 {
+            background-color: #ffff00;
+        }
+
+        .status-aqi3 {
+            background-color: #ff7e00;
+        }
+
+        .status-aqi4 {
+            background-color: #ff0000;
+        }
+
+        .status-aqi5 {
+            background-color: #8f3f97;
+        }
+
+        .status-aqi6 {
+            background-color: #7e0023;
+        }
+    </style>
+</head>
+
+<body class="bg-lighter">
+    <div class="container my-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-9 post">
+                <div id="app">
+                    <select name="selectCity" id="selectCity" class="form-control mb-3" v-model="filter">
+                        <option value="" disabled>--- 請選擇城市 ---</option>
+                        <option :value="item" v-for="item in selectOptionFilter">{{item}}</option>
+                    </select>
+                    <card-component :location-data="stared" :is-star="true" @removemark="cancelMark"></card-component>
+                    <card-component :location-data="locationFilter" :is-star="false" @addmark="addMark"></card-component>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/x-template" id="card">
+        <div v-if="locationData.length > 0">
+            <h4 v-if="isStar">關注城市</h4>
+        <div class="card-columns">
+          <div class="card" :class="switchClassName(item.Status)" v-for="item in locationData" :key="item.SiteName">
+              <div class="card-header">{{item.County}} - {{item.SiteName}}
+                <a href="#" class="float-right" @click.prevent="starAdd(item)" v-if="!isStar" ><i class="far fa-star"></i></a>
+                <a href="#" class="float-right" @click.prevent="starRemove(item)" v-if="isStar"><i class="far fas fa-star"></i></a>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled">
+                  <li>AQI 指數: {{item.AQI}}</li>
+                  <li>PM2.5: {{item["PM2.5"]}}</li>
+                  <li>說明: {{item.Status}}</li>
+                </ul>
+                {{item.PublishTime}}
+              </div>
+          </div>
+        </div>
+          <hr v-if="isStar">
+        </div>
+    </script>
+
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c"
+        crossorigin="anonymous"></script>
+    <script src="javascript/vendor.js"></script>
+    <script src="javascript/all.js"></script>
+
+</body>
+
+</html>
